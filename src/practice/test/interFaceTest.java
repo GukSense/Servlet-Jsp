@@ -1,8 +1,8 @@
-package com.test.main;
+package practice.test;
 
 
 
-public class BookTest {
+public class interFaceTest {
 	
 	/*
 	문제 1.
@@ -11,6 +11,7 @@ public class BookTest {
 	창고에 저장될 재고의 정보는 상품명, 가격, 입고일자(String), 출고일자(String)
 	힌트) 창고 클래스, 재고 인터페이스, 
 	재고 인터페이스가 적용된 상품 클래스들, 재고들이 저장될 배열, instanceof 연산자를 통해 창고에 저장가능한 상품인지 아닌지를 구분할 수 있습니다. 
+	
 	문제 2.
 	출고 기능을 코딩하세요.
 	출고 메소드는 배열에 담겨 있는 해당 재고를 제거하는 방식으로 작성하세요.

@@ -1,4 +1,4 @@
-package com.test.main;
+package practice.test;
 
 public class practicepaper2 {
 	

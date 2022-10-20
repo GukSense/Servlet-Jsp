@@ -132,7 +132,7 @@ class CafeDavinci {
 
 
 
-public class practicepaper {
+public class InnerClassTest1 {
 	public static void main(String[]args) {
 		
 		CafeDavinci davinci = new CafeDavinci();
