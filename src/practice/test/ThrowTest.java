@@ -51,7 +51,12 @@ class VendingMachine {
 
 		System.out.println("원하시는 음료를 선택하여주세요 1: 콜라 2: 사이다 3: 오렌지쥬스 4: 토레타  5: 식혜");
 		// Review the code
-		user.setBeverage(Beverage.of(scanner.nextInt())); 
+		try {
+			
+			user.setBeverage(Beverage.of(scanner.nextInt())); 			
+		} catch(ArrayIndexOutOfBoundsException e)  {
+			System.out.println("없는 메뉴입니다. 메뉴판에있는 번호만 입력해주세요");
+		}
 		System.out.println("선택하신 음료수의 가격은 " + user.test() + "입니다. 구매하시겠습니까?");
 		
 		if(user.getPrice() <= user.getBalance()) {
@@ -200,12 +205,12 @@ enum Beverage  {
 	
 	//여기서 try catch를 사용해서 코드를 짜보자 
 	public static Beverage of(int index) {
-		try {
-		
-		} catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println(e.getMessage());
-			System.out.println("없는 메뉴입니다. 메뉴판에있는 번호만 입력해주세요");
-		}
+//		try {
+//		
+//		} catch(ArrayIndexOutOfBoundsException e) {
+//			System.out.println(e.getMessage());
+//			System.out.println("없는 메뉴입니다. 메뉴판에있는 번호만 입력해주세요");
+//		}
 		
 		return beverage[index-1];
 	}

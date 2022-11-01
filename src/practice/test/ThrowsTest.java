@@ -2,6 +2,16 @@ package practice.test;
 
 import java.util.Scanner;
 
+
+/*
+문제 1.
+음료를 뽑을 수 있는 자판기 프로그램을 만들어 주세요.
+제공되는 음료 외의 번호 입력 시 발생되는 사용자 정의 예외 클래스를 작성해 주세요.
+잔액이 부족할 경우 발생되는 사용자 정의 예외 클래스를 작성해 주세요.
+각각의 예외 발생에 대해 예외처리하는 코드를 작성해 주세요.
+*/
+
+
 public class ThrowsTest {
 	
 	public static void main(String[]args) {
@@ -44,7 +54,7 @@ class VendingMachine2 {
 			System.out.println(" ==== SamSung 'beverage vending machine' 입니다. ====");
 			System.out.println("원하시는 금액을 넣어주세요.");
 			user.putPrice(scanner.nextInt());
-			System.out.println("현재잔액은 " + user.getBalance() + "입니다.");
+			System.out.println("현재 잔액은 " + user.getBalance() + "입니다.");
 		
 			return user;
 	}
@@ -55,7 +65,12 @@ class VendingMachine2 {
 
 		System.out.println("원하시는 음료를 선택하여주세요 1: 콜라 2: 사이다 3: 오렌지쥬스 4: 토레타  5: 식혜");
 		// Review the code
-		user.setBeverage(Beverage2.of(scanner.nextInt())); 
+		try {
+				user.setBeverage(Beverage2.of(scanner.nextInt())); 
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println(e.getMessage());
+			System.out.println("없는 메뉴입니다. 메뉴판에있는 번호만 입력해주세요");
+		}
 		System.out.println("선택하신 음료수의 가격은 " + user.test() + "입니다. 구매하시겠습니까?");
 		
 		if(user.getPrice() <= user.getBalance()) {
@@ -177,9 +192,9 @@ enum Beverage2  {
 	
 	
 	//여기서 try catch를 사용해서 코드를 짜보자 
-	public static Beverage2 of(int index) {
+	public static Beverage2 of(int index) throws ArrayIndexOutOfBoundsException {
 		try {
-		
+			
 		} catch(ArrayIndexOutOfBoundsException e) {
 			System.out.println(e.getMessage());
 			System.out.println("없는 메뉴입니다. 메뉴판에있는 번호만 입력해주세요");
