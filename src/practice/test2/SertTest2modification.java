@@ -1,0 +1,192 @@
+package practice.test2;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+
+public class SertTest2modification {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		/*
+		엘컴퓨터식당에는 짜장면, 짬뽕, 된장찌개, 김치찌개, 탕수육 식사 메뉴가 있습니다.
+		A는 짜장면, 짬뽕을 시켰습니다.
+		B는 짜장면, 탕수육을 시켰습니다.
+		C는 짜장면, 김치찌개를 시켰습니다. 
+		
+		
+		문제 1.
+		주문한 모든 메뉴를 중복 없이 정렬하여 출력하세요.
+		문제 2.
+		모든 사람이 주문한 메뉴를 출력하세요.
+		문제 3.
+		한 명도 시키지 않은 메뉴들을 출력하세요.
+		*/
+		Scanner scanner = new Scanner(System.in);
+		
+		Cafeteria jajangmyeon = new Cafeteria();
+		jajangmyeon.setName("짜장면");
+		jajangmyeon.setPrice(4500);
+		Cafeteria jjamppong = new Cafeteria();
+		jjamppong.setName("짬뽕");
+		jjamppong.setPrice(6500);
+		Cafeteria doenjangStew = new Cafeteria();
+		doenjangStew.setName("된장찌개");
+		doenjangStew.setPrice(6000);
+		Cafeteria kimchiStew = new Cafeteria();
+		kimchiStew.setName("김치찌개");
+		kimchiStew.setPrice(6000);
+		Cafeteria SweetandSourPork = new Cafeteria();
+		SweetandSourPork.setName("탕수육");
+		SweetandSourPork.setPrice(10000);
+		
+		
+		List<Cafeteria> menus = new ArrayList<>();
+		menus.add(SweetandSourPork);
+		menus.add(kimchiStew);
+		menus.add(doenjangStew);
+		menus.add(jajangmyeon);
+		menus.add(jjamppong);
+		
+	
+		
+		
+		User userA = new User();
+		System.out.print("엘컴퓨터식당입니다.");
+		System.out.println("원하시는 메뉴를 선택하여주십시오: -> 1: 짜장면 2: 짬뽕 3: 된장찌개 4: 김치찌개 5: 탕수육");
+		try {
+			userA.setOrderName(scanner.nextInt());
+		} catch(NullPointerException e) {
+			System.out.println("빈값오류");
+		};
+		try {
+		userA.setOrderPrice(scanner.nextInt());
+		} catch(NullPointerException e) {
+			System.out.println("빈값오류");
+		};
+		
+		
+		
+		
+		
+	}
+
+}
+class User  extends Cafeteria implements OrderService {
+	private int price;
+	private String orderName;
+	List<Cafeteria> menus;
+	
+	public String setOrderName(int menu) {
+		switch(menu) {
+			case 0:
+				getMenu(menu).getName();
+				break;
+			case 1:
+				getMenu(menu).getName();
+				break;
+			case 2:
+				getMenu(menu).getName();
+				break;
+			case 3:
+				getMenu(menu).getName();
+				break;
+			case 4:
+				getMenu(menu).getName();
+				break;
+		}
+			
+		orderName = getMenu(menu).getName();
+		return orderName ;
+	}
+	
+	public int setOrderPrice(int menu) {		
+		switch(menu) {
+		case 0:
+			getMenu(menu).getPrice();
+			break;
+		case 1:
+			getMenu(menu).getPrice();
+			break;
+		case 2:
+			getMenu(menu).getPrice();
+			break;
+		case 3:
+			getMenu(menu).getPrice();
+			break;
+		case 4:
+			getMenu(menu).getPrice();
+			break;
+		}
+		price = getMenu(menu).getPrice();
+		return price;
+	}
+	public Cafeteria getMenu(int index){
+		return menus.get(index);
+	}
+	
+	@Override
+	public String getOrderName() {
+		return orderName;
+	}
+	
+	@Override
+	public int getOrderPrice() {
+		return price;
+	}
+	
+}
+
+interface OrderService {
+	public abstract String getOrderName();
+	public abstract int getOrderPrice();
+}
+
+class Cart <T extends OrderService> {
+	private List<T> items;
+	
+	public Cart() {
+		items = new ArrayList<>();
+	}
+	
+	
+	public void add(T item) {
+		items.add(item);
+	}
+		
+	public T get(int index) {
+		return items.get(index);
+	}
+}
+
+
+class Cafeteria {	
+	private int price;
+	private String name;
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	
+	public String toString() {
+		return "메뉴명: " + name + " 가격: " + price;
+	}
+	
+	
+}
