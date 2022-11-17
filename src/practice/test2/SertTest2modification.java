@@ -1,7 +1,7 @@
 package practice.test2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -26,149 +26,31 @@ public class SertTest2modification {
 		*/
 		Scanner scanner = new Scanner(System.in);
 		
-		Cafeteria jajangmyeon = new Cafeteria();
-		jajangmyeon.setName("Â¥Àå¸é");
-		jajangmyeon.setPrice(4500);
-		Cafeteria jjamppong = new Cafeteria();
-		jjamppong.setName("Â«»Í");
-		jjamppong.setPrice(6500);
-		Cafeteria doenjangStew = new Cafeteria();
-		doenjangStew.setName("µÈÀåÂî°³");
-		doenjangStew.setPrice(6000);
-		Cafeteria kimchiStew = new Cafeteria();
-		kimchiStew.setName("±èÄ¡Âî°³");
-		kimchiStew.setPrice(6000);
-		Cafeteria SweetandSourPork = new Cafeteria();
-		SweetandSourPork.setName("ÅÁ¼öÀ°");
-		SweetandSourPork.setPrice(10000);
-		
-		
-		List<Cafeteria> menus = new ArrayList<>();
-		menus.add(SweetandSourPork);
-		menus.add(kimchiStew);
-		menus.add(doenjangStew);
-		menus.add(jajangmyeon);
-		menus.add(jjamppong);
-		
-	
-		
-		
-		User userA = new User();
-		System.out.print("¿¤ÄÄÇ»ÅÍ½Ä´çÀÔ´Ï´Ù.");
-		System.out.println("¿øÇÏ½Ã´Â ¸Þ´º¸¦ ¼±ÅÃÇÏ¿©ÁÖ½Ê½Ã¿À: -> 1: Â¥Àå¸é 2: Â«»Í 3: µÈÀåÂî°³ 4: ±èÄ¡Âî°³ 5: ÅÁ¼öÀ°");
-		try {
-			userA.setOrderName(scanner.nextInt());
-		} catch(NullPointerException e) {
-			System.out.println("ºó°ª¿À·ù");
-		};
-		try {
-		userA.setOrderPrice(scanner.nextInt());
-		} catch(NullPointerException e) {
-			System.out.println("ºó°ª¿À·ù");
+		Food[] arrFood = {
+				new Food("Â¥Àå¸é", 5000),
+				new Food("Â«»Í", 6000),
+				new Food("µÈÀåÂî°³",6500),
+				new Food("±èÄ¡Âî°³",6500),
+				new Food("ÅÁ¼öÀ°", 10000),
 		};
 		
+	
 		
 		
-		
-		
-	}
 
-}
-class User  extends Cafeteria implements OrderService {
-	private int price;
-	private String orderName;
-	List<Cafeteria> menus;
 	
-	public String setOrderName(int menu) {
-		if ()
-			return;
-		switch(menu) {
-			case 0:
-				getMenu(menu).getName();
-				break;
-			case 1:
-				getMenu(menu).getName();
-				break;
-			case 2:
-				getMenu(menu).getName();
-				break;
-			case 3:
-				getMenu(menu).getName();
-				break;
-			case 4:
-				getMenu(menu).getName();
-				break;
-		}
-			
-		orderName = getMenu(menu).getName();
-		return orderName ;
-	}
-	
-	public int setOrderPrice(int menu) {		
-		switch(menu) {
-		case 0:
-			getMenu(menu).getPrice();
-			break;
-		case 1:
-			getMenu(menu).getPrice();
-			break;
-		case 2:
-			getMenu(menu).getPrice();
-			break;
-		case 3:
-			getMenu(menu).getPrice();
-			break;
-		case 4:
-			getMenu(menu).getPrice();
-			break;
-		}
-		price = getMenu(menu).getPrice();
-		return price;
-	}
-	public Cafeteria getMenu(int index){
-		return menus.get(index);
-	}
-	
-	@Override
-	public String getOrderName() {
-		return orderName;
-	}
-	
-	@Override
-	public int getOrderPrice() {
-		return price;
-	}
-	
-}
-
-interface OrderService {
-	public abstract String getOrderName();
-	public abstract int getOrderPrice();
-}
-
-class Cart <T extends OrderService> {
-	private List<T> items;
-	
-	public Cart() {
-		items = new ArrayList<>();
-	}
-	
-	
-	public void add(T item) {
-		items.add(item);
-	}
-		
-	public T get(int index) {
-		return items.get(index);
 	}
 }
 
-
-class Cafeteria {	
-	private int price;
+class Food {
 	private String name;
+	private int price;
 	
-	
+	public Food(String name, int price) {
+		this.name = name;
+		this.price = price;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -185,10 +67,35 @@ class Cafeteria {
 		this.price = price;
 	}
 	
-	
 	public String toString() {
 		return "¸Þ´º¸í: " + name + " °¡°Ý: " + price;
 	}
+}
+
+class Cafeteria <T extends OrderItem> {
+	private List<T> foods;
+//	private Set<Food> SetFoods;
 	
 	
+	public Cafeteria() {
+		foods = new ArrayList<>();
+	}
+	
+	public void setFoods(T[] food) {
+		Collections.addAll(foods, food);
+	}
+	
+	public List<T> getListFoods(){
+		return foods;
+	}
+	
+
+	
+	
+}
+
+
+interface OrderItem {
+	public abstract String getOrderItemName();
+	public abstract  int getOrderItemPrice();
 }
