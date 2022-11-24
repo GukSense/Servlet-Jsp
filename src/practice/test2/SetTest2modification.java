@@ -2,8 +2,8 @@ package practice.test2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public class SetTest2modification {
@@ -144,11 +144,16 @@ class OrderService {
 			System.out.println(o);
 		}
 	}
-}
-class Cafeteria {
-	private List<Food> foods;
 	
+	public void printCommonOrder() {
+		System.out.println("Common");
+		Set<Order> o1 = null;
+		Set<Order> o2 = null;
+		
+		
+	}
 	
 }
+
 
 
