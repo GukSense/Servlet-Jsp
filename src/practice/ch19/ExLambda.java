@@ -3,6 +3,14 @@ package practice.ch19;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+문제 1.
+회원에 레벨 속성을 추가하고 레벨이 2이상인 회원만 출력하는 코드를 람다식을 사용하여 코딩하세요.
+문제 2.
+차량 출입 시간이 5시에서 9시 사이인 차량만 출력하는 프로그램을 코딩하세요.
+위 회원 검색 프로그램과 같이 함수형 인터페이스를 작성하고 람다식을 사용해야 합니다.  
+*/
+
 public class ExLambda {
 
 	public static void main(String[] args) {
@@ -25,6 +33,10 @@ public class ExLambda {
 		condUsers = UserService.search(allUsers, u -> u.getId().startsWith("test"));
 		UserService.printUsers(condUsers);
 		System.out.println();
+		
+		condUsers = UserService.search(allUsers, u -> u.getLevel() >= 2);
+		UserService.printUsers(condUsers);
+		System.out.println();
 	}
 
 }
@@ -40,11 +52,11 @@ class UserService {
 	
 	static {
 		userMap = new HashMap<>();
-		UserService.add("admin", new User("admin", 27));
-		UserService.add("test1", new User("test1", 30));
-		UserService.add("test2", new User("test2", 22));
-		UserService.add("test3", new User("test3", 19));
-		UserService.add("test4", new User("test4", 35));
+		UserService.add("admin", new User("admin", 27, 1));
+		UserService.add("test1", new User("test1", 30, 2));
+		UserService.add("test2", new User("test2", 22, 3));
+		UserService.add("test3", new User("test3", 19, 4));
+		UserService.add("test4", new User("test4", 35, 5));
 	}
 	public static Map<String, User> getUserMap(){
 		return userMap;
@@ -71,10 +83,12 @@ class UserService {
 class User {
 	private String id;
 	private int age;
+	private int level;
 	
-	public User(String id, int age) {
+	public User(String id, int age, int level) {
 		this.age = age;
 		this.id = id;
+		this.level = level;
 	}
 
 	public String getId() {
@@ -83,10 +97,12 @@ class User {
 	public int getAge() {
 		return age;
 	}
-
+	public int getLevel() {
+		return level;
+	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", age=" + age + "]";
+		return "User [id=" + id + ", age=" + age + ", level=" + level + "]";
 	}
 	
 	
