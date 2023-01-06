@@ -55,6 +55,6 @@ public class User {
 		this.u_age = u_age;
 	}
 	
-
+	
 
 }
