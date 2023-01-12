@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lcomputerstudy.testmvc.service.UserService;
+import com.lcomputerstudy.testmvc.vo.Pagination;
 import com.lcomputerstudy.testmvc.vo.User;
 
 
@@ -35,8 +36,8 @@ public class Controller extends HttpServlet {
 		User user = null;
 		UserService userService = null;
 		
-		int usercount = 0;
 		int page = 1;
+		int count = 0;
 		
 		response.setContentType("text/html; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
@@ -46,13 +47,18 @@ public class Controller extends HttpServlet {
 				String reqPage = request.getParameter("page");
 				if(reqPage != null) {
 					page = Integer.parseInt(reqPage);
-					page = (page-1) * 3;
 				}
 				userService = UserService.getInstance();
 				ArrayList<User> list = userService.getUsers(page);
-				usercount = userService.getUsersCount();
+				count = userService.getUsersCount();
+				Pagination pagination = new Pagination();
+				pagination.setPage(page);
+				pagination.setCount(count);
+				pagination.init();
+				
+				
 				request.setAttribute("list", list);
-				request.setAttribute("usercount", usercount);
+				request.setAttribute("pagination", pagination);
 				
 				view = "user/list";
 				
@@ -129,4 +135,3 @@ public class Controller extends HttpServlet {
 	
 	
 }
-
