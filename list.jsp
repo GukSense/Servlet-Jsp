@@ -42,6 +42,7 @@
 		text-align:center;
 		margin:0 5px;
 		border-radius:5px;
+		display: inline;
 	}
 	
 </style>
@@ -50,7 +51,7 @@
 <h1>회원 목록</h1>
 	<table>
 		<tr>
-			<td colspan="3">전체 회원 수: ${usercount}</td>
+			<td colspan="3">전체 회원 수: ${pagination.count}</td>
 		</tr>
 		
 		<tr>
@@ -66,16 +67,40 @@
 		     <tr>
 		</c:forEach>
 	</table>
-	
+<!--  아래부터 Pagination -->	
 	<div>
 		<ul>
-			<li><a href="user-list.do?page=1">1</a></li>
-			<li><a href="user-list.do?page=2">2</a></li>
-			<li><a href="user-list.do?page=3">3</a></li>
-			<li><a href="user-list.do?page=4">4</a></li>
-			<li><a href="user-list.do?page=5">5</a></li>
-			<li><a href="user-list.do?page=6">6</a></li>
-
+			<c:choose>
+				<c:when test="${pagination.startPage > 5}">
+					<li>
+						<a href="user-list.do?page=${pagination.prevPage }">
+							◀
+						</a>
+					</li>
+				</c:when>
+			</c:choose>
+			<c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
+				<c:choose>
+					<c:when test="${ pagination.page == i}">
+						
+						<li style="background-color:#ededed;">
+							<span>${i}</span>
+						</li>
+					</c:when>
+					<c:when test="${pagination.page != i }">
+						<li>
+							<a href="user-list.do?page=${i}">${i}</a>
+						</li>
+					</c:when>				
+				</c:choose>
+			</c:forEach>
+			<c:choose>
+				<c:when test="${ pagination.nextPage < pagination.lastPage }">
+					<li>
+						<a href ="user-list.do?page=${pagination.nextPage }">▶</a>
+					</li>
+				</c:when>
+			</c:choose>
 		</ul>
 	</div>
 </body>
