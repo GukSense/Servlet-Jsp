@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import com.lcomputerstudy.testmvc.database.DBConnection;
 import com.lcomputerstudy.testmvc.vo.User;
@@ -25,22 +24,34 @@ public class UserDAO {
 		return dao;
 	}
 	
-	public ArrayList<User> getUsers(){
+	public ArrayList<User> getUsers(int page){
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ArrayList<User> list = null;
+			int pageNum = (page-1)*3;
 			
 			try {
 				conn = DBConnection.getConnection();
-				String query = "select * from user";
+				//String query = "select * from user limit ? , 3";
+				String query = new StringBuilder()
+					.append("SELECT		@ROWNUM := @ROWNUM -1 AS ROWNUM,\n")
+					.append("			ta.*\n")
+					.append("FROM 		user ta,\n")
+					.append("			(SELECT @rownum := (SELECT COUNT(*)-?+1 FROM user ta)) tb\n")
+					.append("LIMIT		?,	3\n")
+					.toString();
+				
 				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, pageNum);
+				pstmt.setInt(2, pageNum);
 				rs = pstmt.executeQuery();
 				list = new ArrayList<User>();
 				
 				while(rs.next()) {
 					User user = new User();
+					user.setRownum(rs.getInt("ROWNUM"));
 					user.setU_idx(rs.getInt("u_idx"));
 					user.setU_id(rs.getString("u_id"));
 					user.setU_name(rs.getString("u_name"));
@@ -222,43 +233,5 @@ public class UserDAO {
 		return count;
 	}
 	
-	public ArrayList<User> getUsers(int page) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<User> list = null;
-		
-		try {
-			String query = "select * from user limit ?,3";
-			conn = DBConnection.getConnection();
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, page);
-			rs = pstmt.executeQuery();
-			
-			list = new ArrayList<>();
-			
-			while (rs.next()) {
-				User user = new User();
-				user.setU_idx(rs.getInt("u_idx"));
-				user.setU_id(rs.getString("u_id"));
-				user.setU_name(rs.getString("u_name"));
-				user.setU_tel(rs.getString("u_tel"));
-				user.setU_age(rs.getString("u_age"));
-				list.add(user);
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch(ClassNotFoundException e) {
-			
-		} finally {
-			try {
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return list;
-	}
+
 }
