@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.lcomputerstudy.testmvc.database.DBConnection;
+import com.lcomputerstudy.testmvc.vo.Pagination;
 import com.lcomputerstudy.testmvc.vo.User;
 
 public class UserDAO {
@@ -24,13 +25,13 @@ public class UserDAO {
 		return dao;
 	}
 	
-	public ArrayList<User> getUsers(int page){
+	public ArrayList<User> getUsers(Pagination pagination){
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ArrayList<User> list = null;
-			int pageNum = (page-1)*3;
+			int pageNum = pagination.getPageNum();
 			
 			try {
 				conn = DBConnection.getConnection();
@@ -38,14 +39,15 @@ public class UserDAO {
 				String query = new StringBuilder()
 					.append("SELECT		@ROWNUM := @ROWNUM -1 AS ROWNUM,\n")
 					.append("			ta.*\n")
-					.append("FROM 		user ta,\n")
-					.append("			(SELECT @rownum := (SELECT COUNT(*)-?+1 FROM user ta)) tb\n")
-					.append("LIMIT		?,	3\n")
+					.append("FROM 		user ta\n")
+					.append("LEFT JOIN	(SELECT @rownum := (SELECT COUNT(*)-?+1 FROM user ta)) tb ON 1=1\n")
+					.append("LIMIT		?, ?\n")
 					.toString();
 				
 				pstmt = conn.prepareStatement(query);
 				pstmt.setInt(1, pageNum);
 				pstmt.setInt(2, pageNum);
+				pstmt.setInt(3, Pagination.perPage);
 				rs = pstmt.executeQuery();
 				list = new ArrayList<User>();
 				
@@ -232,6 +234,39 @@ public class UserDAO {
 		
 		return count;
 	}
-	
+	public User loginUser(String idx, String pw) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User user = null;
+		
+		try {
+			conn = DBConnection.getConnection();
+			String sql = "SELECT * FROM user WHERE u_id=? AND u_pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, idx);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				user = new User();
+				user.setU_idx(rs.getInt("u_idx"));
+				user.setU_pw(rs.getString("u_pw"));
+				user.setU_id(rs.getString("u_id"));
+				user.setU_name(rs.getString("u_name"));
+			
+			}
+		} catch(Exception ex) {
+			System.out.println("SQLException : " + ex.getMessage());
+		} finally{
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}	// end of loginUser
 
 }
