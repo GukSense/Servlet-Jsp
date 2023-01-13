@@ -17,6 +17,7 @@ public class Pagination {
 	}
 
 	public void init() {
+		pageNum = (page-1)*perPage;
 		startPage = ((page-1)/pageUnit)*pageUnit+1;
 		lastPage = (int)Math.ceil(count / (float)perPage);
 		endPage = startPage + pageUnit-1;

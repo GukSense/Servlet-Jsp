@@ -29,9 +29,11 @@
 		text-align:center;
 	}
 	ul {
-		width:400px;
+		width:450px;
 		height:50px;
 		margin:10px auto;
+		text-align:center;
+					
 	}
 	li {
 		list-style:none;
@@ -39,11 +41,14 @@
 		line-height:50px;
 		border:1px solid #ededed;
 		float:left;
-		text-align:center;
 		margin:0 5px;
 		border-radius:5px;
-		display: inline;
+		display:inline;
+		
+		
 	}
+
+	
 	
 </style>
 </head>
@@ -96,7 +101,7 @@
 			</c:forEach>
 			<c:choose>
 				<c:when test="${ pagination.nextPage < pagination.lastPage }">
-					<li>
+					<li style="display:inlien;">
 						<a href ="user-list.do?page=${pagination.nextPage }">▶</a>
 					</li>
 				</c:when>

@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수정 값 넘겨받기</title>
+<title>로그인 실패</title>
 </head>
 <body>
-	<h1>수정 완료</h1>
-	<a href ="/lcomputerstudy/user-list.do">돌아가기</a>
+	<h1>로그인 실패</h1>
 </body>
 </html>

@@ -22,6 +22,10 @@
 		text-decoration:none;
 		color:#000;
 		font-weight:700;
+		border:none;
+		cursor:pointer;
+		padding:10px;
+		display:inline-block;
 	}
 </style>
 </head>
@@ -49,14 +53,15 @@
 		<td>회원 나이</td>
 		<td>${user.u_age }</td>
 	</tr>
-	
+	<tr style = "height:50px">	
+		<td style="border:none;">	
+			<a href="/lcomputerstudy/user-edit.do?u_idx=${user.u_idx}" style="width:70%;font-weight:700;background-color:#818181;color:#fff;">수정</a>
+		</td>
+		<td style="border:none;">
+			<a href="/lcomputerstudy/user-delete.do?u_idx=${user.u_idx}" style="width:70%;font-weight:700;background-color:red;color:#fff;">삭제</a>
+		</td>
+	</tr>
 </table>
-		
-	<button style="width:200px;font-weight:700;background-color:#818181;color:#fff;border:none; ">
-		<a href="user/userEdit.jsp?u_idx=${user.u_idx }">수정</a>
-	</button>
-	<button style="width:200px;font-weight:700;background-color:red;color:#fff;border:none;">삭제</button>
-	
 	
 	
 	

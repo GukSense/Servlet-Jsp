@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수정 값 넘겨받기</title>
+<title>유저삭제</title>
 </head>
 <body>
-	<h1>수정 완료</h1>
+	<h2>삭제 완료</h2>
 	<a href ="/lcomputerstudy/user-list.do">돌아가기</a>
 </body>
 </html>
