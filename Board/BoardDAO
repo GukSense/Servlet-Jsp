@@ -1,0 +1,55 @@
+package com.lcomputerstudy.testmvc.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.lcomputerstudy.testmvc.vo.Board;
+
+public class BoardDAO {
+	private static BoardDAO dao = null;
+	
+	public BoardDAO() {
+		
+	}
+	
+	public static BoardDAO getInstance() {
+		if(dao != null) {
+			dao = new BoardDAO();
+		}
+		return dao;
+	}
+	
+	public Board writingRegiStraion(Board board) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if(conn != null) conn.close();
+				if(pstmt != null) pstmt.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		return board;
+	}
+	
+}
