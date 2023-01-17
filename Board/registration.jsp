@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-	<form method="post" action="/lcomputerstudy/board-list.do" onsubmit="return confirm('등록하시겠습니까?');" name="board-registration">
+	<form method="post" action="/lcomputerstudy/board-process.do" onsubmit="return confirm('등록하시겠습니까?');" name="registration">
     			<table style= "text-align: center; boarder: 1px solid #dddddd">
 	    	    	<thead>
 		    	    	<tr>
@@ -20,14 +20,13 @@
 			    	<tbody>
 			    		<tr>
 			    			<td><input type="text"  placeholder="글 제목"  name="board-title" maxlength="50" ></td>
+			    			<td><input type="text" placeholder="id입력" name="board-id" maxlength="10"></td>
 			    		</tr>
 			    		<tr>
 			    			<td><textarea  placeholder="글 내용"  name="board-content" maxlength="2048" style= "height:350px" ></textarea></td>
 			    		</tr>
 			    	</tbody>
     	    	</table>
-    	    	<input type="hidden" name="">
-    	    	<input type="hidden" name="">
     	    	<input type="submit"  value="글쓰기" >
     </form>
 </body>

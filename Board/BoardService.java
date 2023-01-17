@@ -1,5 +1,7 @@
 package com.lcomputerstudy.testmvc.service;
 
+import java.util.ArrayList;
+
 import com.lcomputerstudy.testmvc.dao.BoardDAO;
 import com.lcomputerstudy.testmvc.vo.Board;
 
@@ -19,7 +21,14 @@ public class BoardService {
 		return service;
 	}
 	
-	public Board writingRegiStraion(Board board) {
-		return dao.writingRegiStraion(board);
+	public void writingRegiStraion(Board board) {
+		 dao.writingRegiStraion(board);
 	} 
+	
+	public static ArrayList<Board> getBoardList(){
+		return dao.getBoardList();
+	}
+	public static void getDate() {
+		dao.getDate();
+	}
 }
