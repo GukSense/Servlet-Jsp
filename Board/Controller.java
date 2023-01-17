@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.lcomputerstudy.testmvc.service.BoardService;
 import com.lcomputerstudy.testmvc.service.UserService;
+import com.lcomputerstudy.testmvc.vo.Board;
 import com.lcomputerstudy.testmvc.vo.Pagination;
 import com.lcomputerstudy.testmvc.vo.User;
 
@@ -36,7 +37,10 @@ public class Controller extends HttpServlet {
 		String view = null;
 		User user = null;
 		UserService userService = null;
+		
 		BoardService boardService = null;
+		Board board = null;
+		ArrayList<Board> boardList = null;
 		int page = 1;
 		int count = 0;
 		
@@ -160,16 +164,29 @@ public class Controller extends HttpServlet {
 			case "/access-denied.do":
 				view=  "user/access-denied";
 				break;
-//	여기서부터 계층형 게시판
+//	여기서부터 계층형 게시판	---------------------------------------------------------
 				
 				
 			case "/board-list.do":
 				boardService = new BoardService();
+				boardList = BoardService.getBoardList();
 				
 				view = "board/list";
-				break;
 				
-			case "":
+				request.setAttribute("list", boardList);
+				
+				break;
+			case "/board-registration.do":
+				view = "board/registration";
+				break;
+			case "/board-process.do":
+				board = new Board();
+				board.setTitle(request.getParameter("board-title"));
+				board.setContent(request.getParameter("board-content"));
+				boardService = BoardService.getInstance();
+				boardService.writingRegiStraion(board);
+//				boardService
+				view = "board/list";
 				
 				break;
 				
